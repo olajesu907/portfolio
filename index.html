@@ -69,6 +69,16 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 footer p{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--muted2);letter-spacing:.1em}
 .fmark{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;color:var(--muted2)}.fmark span{color:var(--gold)}
 @media(max-width:900px){nav{padding:1rem 1.5rem}.navlinks{display:none}.hero{grid-template-columns:1fr;position:relative}.heroright{position:absolute;inset:0;z-index:0;border:none}.herobadge{display:none}.heroright img{opacity:0.35}.heroleft{padding:7rem 1.5rem 4rem;position:relative;z-index:1}.statsbar{grid-template-columns:repeat(2,1fr)}.sechdr,.filters{padding-left:1.5rem;padding-right:1.5rem}.pgrid{grid-template-columns:1fr;padding:0 1.5rem}.pcard.feat{grid-column:span 1}.about,.contact{grid-template-columns:1fr;padding-left:1.5rem;padding-right:1.5rem;gap:3rem}footer{padding:1.5rem;flex-direction:column;gap:.5rem;text-align:center}.statitem{padding:1.5rem}}
+
+.reel-btn{display:inline-flex;align-items:center;gap:.7rem;background:transparent;color:var(--white);font-family:'Space Mono',monospace;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:.9rem 1.8rem;text-decoration:none;border:2px solid var(--white);cursor:pointer;transition:all .2s}
+.reel-btn:hover{border-color:var(--gold);color:var(--gold)}
+.reel-btn .play-icon{width:18px;height:18px;background:var(--gold);clip-path:polygon(20% 10%,90% 50%,20% 90%);flex-shrink:0}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal-inner{position:relative;width:90vw;max-width:900px;aspect-ratio:16/9}
+.modal-inner iframe{width:100%;height:100%;border:none}
+.modal-close{position:absolute;top:-2.5rem;right:0;background:none;border:none;color:var(--white);font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;padding:.5rem}
+.modal-close:hover{color:var(--gold)}
 </style>
 </head>
 <body>
@@ -89,6 +99,7 @@ footer p{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--muted2)
     <div class="ctas">
       <a class="btnp" href="#work">&#8595; View Work</a>
       <a class="btns" href="#contact">Get In Touch</a>
+      <button class="reel-btn" onclick="openReel()"><span class="play-icon"></span>Watch Reel</button>
     </div>
   </div>
   <div class="heroright">
@@ -284,6 +295,28 @@ for (var i = 0; i < tabs.length; i++) {
 }
 
 render("all");
+</script>
+
+<div class="modal-bg" id="reelModal" onclick="closeReel(event)">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeReelBtn()">&#x2715; Close</button>
+    <iframe id="reelFrame" src="" allowfullscreen allow="autoplay"></iframe>
+  </div>
+</div>
+<script>
+function openReel(){
+  document.getElementById('reelFrame').src='https://www.youtube.com/embed/yDqIjCbqz7E?autoplay=1&rel=0';
+  document.getElementById('reelModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeReelBtn(){
+  document.getElementById('reelFrame').src='';
+  document.getElementById('reelModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeReel(e){
+  if(e.target===document.getElementById('reelModal')) closeReelBtn();
+}
 </script>
 </body>
 </html>
